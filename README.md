@@ -92,9 +92,11 @@ Python Libraries Used:
            end_date = BILL1_END
        return start_date, end_date
     ```
-2. Then, when running the Utilization script, I can simply call those functions, and the program will automatically determine which billing cycle we are currently in, based off today's date, and other supporting date/time functions.
+2. Then, when running the Utilization or Notes script, I can simply call those functions, and the program will automatically determine which billing cycle we are currently in, based off today's date, and other supporting date/time functions.
    ```python
-    GetUtilization(GetPrevMonthStartDate(), GetPrevMonthEndDate())
+      start_date = GetPrevMonthStartDate()
+      end_date = GetPrevMonthEndDate()
+      GetUtilization(start_date, end_date)
    ```
 
 ### Step 2 - Data Extraction
