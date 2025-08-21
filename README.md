@@ -102,6 +102,24 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
       driver.find_element(By.ID, 'datefield-1867-inputEl').send_keys(end_date)
       ```
     - By using the webdriver library, I am able to navigate the system, open the report screen, enter in required filters, and download the data file
+
+2. Due to our EHR system's database, it is querying thousands of records, so it takes time to process the file. So, I wrote a function to detect when the file was ready to be imported.
+     - ```python
+      reportExport = 'C:\\Users\\' + GetUsername() + '\\Downloads\\reportExport.csv'
+      
+      def CheckReportExportExists():
+         while not os.path.exists(reportExport):
+            print("File not finished downloading yet, retrying in 30 seconds...")
+            time.sleep(30)
+         else:
+            print("Download Complete.")
+      ```
+      - Then, simply calling the function:
+      ```python
+      CheckReportExportExists()
+      df = pd.read_csv(reportExport)
+      os.remove(reportExport)
+      ```
   
 ### Step 3 - Data Cleaning
 
