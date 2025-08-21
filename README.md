@@ -123,7 +123,10 @@ Python Libraries Used:
       driver.find_element(By.ID, 'datefield-1865-inputEl').send_keys(start_date)
       driver.find_element(By.ID, 'datefield-1867-inputEl').send_keys(end_date)
       ```
-    - By using the webdriver library, I am able to navigate the system, open the report screen, enter in required filters, and download the data file
+    - By using driver.implicitly_wait(), the webdriver will wait a pre-determined amount of time for elements to load before continuing:
+      ```python
+      wait_time = driver.implicitly_wait(500)
+      ```
 
 2. Due to our EHR system's database, it is querying thousands of records, so it takes time to process the file. So, I wrote a function to detect when the file was ready to be imported.
       ```python
