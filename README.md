@@ -56,7 +56,7 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
       ```
 
 2. start_date and end_date are calling custom defined functions written to determine which dates to use, based on our organization's billing cycles.
-   -Example: I wrote the following code to set up date and time functions:
+   - Example: I wrote the following code to set up date and time functions:
 
     ```python
     current_time = datetime.now()
