@@ -53,26 +53,26 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
 2. start_date and end_date are calling custom defined functions written to determine which dates to use, based on our organization's billing cycles. Here is how I wrote them:\
 `current_time = datetime.now()`\
 `def GetCurYear():`\
-    `return str(current_time.year)`
+    `return str(current_time.year)`\
 `def GetCurDay():`\
-    `return str(current_time.day)`
+    `return str(current_time.day)`\
 `def GetCurMonthNum():`\
-    `return str(current_time.strftime("%m"))`
+    `return str(current_time.strftime("%m"))`\
 `def GetCurDate():`\
-    `return date.today().strftime("%m%d%Y")`
+    `return date.today().strftime("%m%d%Y")`\
 `def GetYesterday():`\
-    `return (date.today() - timedelta(days=1)).strftime("%m%d%Y")`
+    `return (date.today() - timedelta(days=1)).strftime("%m%d%Y")`\
 `def GetPrevMonthNum():`\
-    `return (date.today().replace(day=1) - timedelta(days=1)).strftime("%m")`
+    `return (date.today().replace(day=1) - timedelta(days=1)).strftime("%m")`\
 `def GetPrevMonthLastDay():`\
-    `return (date.today().replace(day=1) - timedelta(days=1)).strftime("%d")`
+    `return (date.today().replace(day=1) - timedelta(days=1)).strftime("%d")`\
 `def GetPrevMonthYear():`\
-    `return (date.today().replace(day=1) - timedelta(days=1)).strftime("%Y")`
+    `return (date.today().replace(day=1) - timedelta(days=1)).strftime("%Y")`\
 `def Get30DaysAgo():`\
-    `return (date.today() - timedelta(days=30)).strftime("%m%d%Y")`
+    `return (date.today() - timedelta(days=30)).strftime("%m%d%Y")`\
 `def GetOneYearAgo():`\
-    `return (date.today() - timedelta(days=365)).strftime("%m%d%Y")`
+    `return (date.today() - timedelta(days=365)).strftime("%m%d%Y")`\
 `def GetPrevMonthStartDate():`\
-    `return GetPrevMonthNum() + '01' + GetPrevMonthYear()`
+    `return GetPrevMonthNum() + '01' + GetPrevMonthYear()`\
 `def GetPrevMonthEndDate():`\
     `return GetPrevMonthNum() + GetPrevMonthLastDay() + GetPrevMonthYear()`
