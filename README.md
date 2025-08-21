@@ -245,7 +245,7 @@ Which is calling the below function:
 
 ```python
    def LoadData(df, table):
-   engine = 'mysql+mysqlconnector://greg.martin:D1raXDTyj%O63^@44.217.3.204:3306/ontarget'
+   engine = 'mysql+mysqlconnector://databasename'
    df.to_sql(table, engine, if_exists='append', index=False) 
    print(df.shape[0], " records loaded to", table)
 ```
