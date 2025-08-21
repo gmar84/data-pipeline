@@ -35,26 +35,9 @@ Python Libraries Used:
 - urllib3
 - socket
 
-### Step 1 - Data Extraction
+### Step 1 - Dates and Billing Cycles Setup
 
-By using the Selenium Chromedriver library, the program logs into the EHR system, navigates the GUI, and downloads the CSV data file. Here is how that is done:
-1. By entering Developer mode in the web browser, locating the id element for fields and buttons allows me to locate and interact the various navigation elements
-    - Example: The following code sets up the driver object
-      ```python
-      driver = webdriver.Chrome()
-      ```
-    - Then, we can use the driver to locate and interact with the button that is labeled 'Billing':
-      ```python
-      driver.find_element(By.LINK_TEXT, "Billing").click()
-      ```
-    - We can also tell it to enter data into fields, such as dates, or other necessary input to filter our data set.
-    - Example: The following code finds the start and end date fields, then inputs the necessary dates
-      ```python
-      driver.find_element(By.ID, 'datefield-1865-inputEl').send_keys(start_date)
-      driver.find_element(By.ID, 'datefield-1867-inputEl').send_keys(end_date)
-      ```
-
-2. start_date and end_date are calling custom defined functions written to determine which dates to use, based on our organization's billing cycles.
+1. start_date and end_date are calling custom defined functions written to determine which dates to use, based on our organization's billing cycles.
    - Example: I wrote the following code to set up date and time functions:
 
     ```python
@@ -95,8 +78,81 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
     def GetPrevMonthEndDate():
         return GetPrevMonthNum() + GetPrevMonthLastDay() + GetPrevMonthYear()
     ```
-3. Then, when running the Utilization script, I can simply call those functions, and the program will automatically determine which billing cycle we are currently in, based off today's date, and other supporting date/time functions.
+2. Then, when running the Utilization script, I can simply call those functions, and the program will automatically determine which billing cycle we are currently in, based off today's date, and other supporting date/time functions.
    ```python
     GetUtilization(GetPrevMonthStartDate(), GetPrevMonthEndDate())
    ```
+
+### Step 2 - Data Extraction
+
+By using the Selenium Chromedriver library, the program logs into the EHR system, navigates the GUI, and downloads the CSV data file. Here is how that is done:
+1. By entering Developer mode in the web browser, locating the id element for fields and buttons allows me to locate and interact the various navigation elements
+    - Example: The following code sets up the driver object
+      ```python
+      driver = webdriver.Chrome()
+      ```
+    - Then, we can use the driver to locate and interact with the button that is labeled 'Billing':
+      ```python
+      driver.find_element(By.LINK_TEXT, "Billing").click()
+      ```
+    - We can also tell it to enter data into fields, such as dates, or other necessary input to filter our data set.
+    - Example: The following code finds the start and end date fields, then inputs the necessary dates
+      ```python
+      driver.find_element(By.ID, 'datefield-1865-inputEl').send_keys(start_date)
+      driver.find_element(By.ID, 'datefield-1867-inputEl').send_keys(end_date)
+      ```
+    - By using the webdriver library, I am able to navigate the system, open the report screen, enter in required filters, and download the data file
+  
+### Step 3 - Data Cleaning
+
+Several cleaning and formatting steps are needed to get the dataset into the appropriate format for loading into the database. This includes removing characters such as commans (,) and dollar signs ($), and converting date formats (from MM-DD-YYYY to YYYY-MM-DD), since MySQL requires that format.
+
+```python
+
+def ConvertDate(df, col): 
+    # Convert the 'date' column to datetime format
+    df[col] = pd.to_datetime(df[col], format='%m/%d/%Y')
+    
+    # Convert the 'date' column to the desired format
+    df[col] = df[col].dt.strftime('%Y-%m-%d')
+
+    #Strip out the timestamp by using string slicing to get only the first 10 characters
+    df[col] = df[col].str.slice(0, 10)
+    return df
+
+def ConvertDateTime(df, col): 
+    # Convert the 'date' column to datetime format
+    df[col] = pd.to_datetime(df[col], format='%m/%d/%Y %H:%M %p')
+    
+    # Convert the 'date' column to the desired format
+    df[col] = df[col].dt.strftime('%Y-%m-%d %H:%M %p')
+
+    #Strip out the timestamp by using string slicing to get only the first 10 characters
+    df[col] = df[col].str.slice(0, 10)  
+    return df
+
+#Cleaning Steps
+#Replaces space characters with underscores 
+#Checks each column for dollar sign ($) then removes ($,) from only those columns
+#Converts date from format MM/DD/YYYY to YYYY-MM-DD
+def CleanDataSet(df):
+    col_names = df.columns.str.replace(' ', '_').tolist()
+    col_names = [x.lower() for x in col_names]
+    df.columns = col_names
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            df[col] = df[col].str.replace(r'[\$,]', '', regex=True)
+        if 'date' in col:
+            ConvertDate(df, col)
+    return df
+
+#Fix Column Names: replace spaces with underscores, and converts upper case to lower case
+def FixColNames(df):
+    col_names = df.columns.str.replace(' ', '_').tolist()
+    col_names = [x.lower() for x in col_names]
+    df.columns = col_names
+```
+
+### Step 4 - Data Formatting
+
 ### Test
