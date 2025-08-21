@@ -41,7 +41,19 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
 1. By entering Developer mode in the web browser, locating the id element for fields and buttons allows me to locate and interact the various navigation elements
     - Example:
     - The following code sets up the driver object:\
-       `driver = webdriver.Chrome()`\
+       `driver = webdriver.Chrome()`
     - Then, we can use the driver to locate and interact with the button that is labeled 'Billing':
     - `driver.find_element(By.LINK_TEXT, "Billing").click()`
+    - We can also tell it to enter data into fields, such as dates, or other necessary input to filter our data set.
+    - Example:
+    - The following code finds the start and end date fields, then inputs the necessary dates:
+    - `driver.find_element(By.ID, 'datefield-1865-inputEl').send_keys(start_date)`
+    - `driver.find_element(By.ID, 'datefield-1867-inputEl').send_keys(end_date)`
+
+2. start_date and end_date are custom defined functions written to determine which dates to use, based on our organization's billing cycles. Here is how I wrote them:
+   `def GetPrevMonthStartDate():`\
+    `return GetPrevMonthNum() + '01' + GetPrevMonthYear()`\
+
+    `def GetPrevMonthEndDate():`\
+    `return GetPrevMonthNum() + GetPrevMonthLastDay() + GetPrevMonthYear()`
 
