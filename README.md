@@ -41,9 +41,9 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
 1. By entering Developer mode in the web browser, locating the id element for fields and buttons allows me to locate and interact the various navigation elements
     - Example:
     - The following code sets up the driver object:
-    `def LoadDriver():
-      driver = webdriver.Chrome()
-    return driver`
+    `def LoadDriver():`
+      `driver = webdriver.Chrome()`
+    `return driver`
     - Then, we can use the driver to locate and interact with the button that is labeled 'Billing':
     - `driver.find_element(By.LINK_TEXT, "Billing").click()`
 
