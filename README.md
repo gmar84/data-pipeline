@@ -143,7 +143,7 @@ Python Libraries Used:
       os.remove(reportExport)
       ```
   
-### Step 3 - Data Cleaning
+### Step 3 - Data Cleaning and Formatting
 
 #### Several cleaning and formatting steps are needed to get the dataset into the appropriate format for loading into the database. 
 
@@ -196,6 +196,8 @@ def CleanDataSet(df):
    - Drop (remove) unnecessary columns
    - Configure date column
    - Remove date information from the service code column using string replace and regular expressions
+   - Convert dollar columns to float
+   - Remove comma characters from currency columns
    ```python
     #Change the Supervisor to LINCS_QP for the clients who attend LINCS.
     #This can be done by filtering the records where the ServiceCode is 'DS' and the QP is NOT DEEPCREEK_qp, 
@@ -220,6 +222,15 @@ def CleanDataSet(df):
     #Strip out the Date from service_code Column
     df['service_code'] = df['service_code'].str.replace(r'\(\d{2}/\d{2}/\d{4}\)', '', regex=True)
     df['service_code'].unique()
+
+   #Remove comma (,) characters from currency columns
+   df.replace({'authorized_units': {',': ''}, 'in_process_units': {',': ''}, 'billed_units': {',': ''}, 'authorized_dollars': {',': ''}, 'in_process_dollars': {',': ''}, 'billed_dollars': {',': ''}, 'variance_billed': {',': ''}}, regex=True, inplace=True)
+
+    #Convert Dollar columns to float type so we can run calculations on the data
+    df['authorized_dollars'] = df['authorized_dollars'].astype(float)
+    df['in_process_dollars'] = df['in_process_dollars'].astype(float)
+    df['billed_dollars'] = df['billed_dollars'].astype(float)
+    df['variance_billed'] = df['variance_billed'].astype(float)
    ```
 
 ### Step 4 - Data Formatting
