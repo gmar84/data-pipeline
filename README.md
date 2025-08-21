@@ -64,27 +64,27 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
 `def GetCurDate():`\
     `return date.today().strftime("%m%d%Y")`\
 
-def GetYesterday():
-    return (date.today() - timedelta(days=1)).strftime("%m%d%Y")
+`def GetYesterday():`
+    `return (date.today() - timedelta(days=1)).strftime("%m%d%Y")`
     
-def GetPrevMonthNum():
-    return (date.today().replace(day=1) - timedelta(days=1)).strftime("%m")
+`def GetPrevMonthNum():`
+    `return (date.today().replace(day=1) - timedelta(days=1)).strftime("%m")`
     
-def GetPrevMonthLastDay():
-    return (date.today().replace(day=1) - timedelta(days=1)).strftime("%d")
+`def GetPrevMonthLastDay():`
+    `return (date.today().replace(day=1) - timedelta(days=1)).strftime("%d")`
 
-def GetPrevMonthYear():
-    return (date.today().replace(day=1) - timedelta(days=1)).strftime("%Y")
+`def GetPrevMonthYear():`
+    `return (date.today().replace(day=1) - timedelta(days=1)).strftime("%Y")`
 
-def Get30DaysAgo():
-    return (date.today() - timedelta(days=30)).strftime("%m%d%Y")
+`def Get30DaysAgo():`
+    `return (date.today() - timedelta(days=30)).strftime("%m%d%Y")`
 
-def GetOneYearAgo():
-    return (date.today() - timedelta(days=365)).strftime("%m%d%Y")
+`def GetOneYearAgo():`
+    `return (date.today() - timedelta(days=365)).strftime("%m%d%Y")`
 
-def GetPrevMonthStartDate():
-    return GetPrevMonthNum() + '01' + GetPrevMonthYear()
+`def GetPrevMonthStartDate():`
+    `return GetPrevMonthNum() + '01' + GetPrevMonthYear()`
 
-def GetPrevMonthEndDate():
-    return GetPrevMonthNum() + GetPrevMonthLastDay() + GetPrevMonthYear()
+`def GetPrevMonthEndDate():`
+    `return GetPrevMonthNum() + GetPrevMonthLastDay() + GetPrevMonthYear()`
 
