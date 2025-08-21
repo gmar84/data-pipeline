@@ -77,6 +77,20 @@ Python Libraries Used:
     
     def GetPrevMonthEndDate():
         return GetPrevMonthNum() + GetPrevMonthLastDay() + GetPrevMonthYear()
+
+   def GetNotesBillingDates():
+       BILL1_START = GetCurMonthNum() + '01' + GetCurYear()
+       BILL1_END = GetCurMonthNum() + '15' + GetCurYear()
+       BILL2_START = GetPrevMonthNum() + '16' + GetPrevMonthYear()
+       BILL2_END = GetPrevMonthNum() + GetPrevMonthLastDay() + GetPrevMonthYear()
+   
+       if int(GetCurDay()) <= 15:
+           start_date = BILL2_START
+           end_date = BILL2_END
+       if int(GetCurDay()) > 15:
+           start_date = BILL1_START
+           end_date = BILL1_END
+       return start_date, end_date
     ```
 2. Then, when running the Utilization script, I can simply call those functions, and the program will automatically determine which billing cycle we are currently in, based off today's date, and other supporting date/time functions.
    ```python
