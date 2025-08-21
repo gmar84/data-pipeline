@@ -104,7 +104,7 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
     - By using the webdriver library, I am able to navigate the system, open the report screen, enter in required filters, and download the data file
 
 2. Due to our EHR system's database, it is querying thousands of records, so it takes time to process the file. So, I wrote a function to detect when the file was ready to be imported.
-     - ```python
+      ```python
       reportExport = 'C:\\Users\\' + GetUsername() + '\\Downloads\\reportExport.csv'
       
       def CheckReportExportExists():
