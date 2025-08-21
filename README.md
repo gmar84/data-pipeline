@@ -85,7 +85,8 @@ Python Libraries Used:
 
 ### Step 2 - Data Extraction
 
-By using the Selenium Chromedriver library, the program logs into the EHR system, navigates the GUI, and downloads the CSV data file. Here is how that is done:
+#### By using the Selenium Chromedriver library, the program logs into the EHR system, navigates the GUI, and downloads the CSV data file. Here is how that is done:
+
 1. By entering Developer mode in the web browser, locating the id element for fields and buttons allows me to locate and interact the various navigation elements
     - Example: The following code sets up the driver object
       ```python
@@ -114,7 +115,7 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
          else:
             print("Download Complete.")
       ```
-      - Then, simply calling the function:
+      - Then, simply call the function, read in the csv data file, and delete it from downloads.
       ```python
       CheckReportExportExists()
       df = pd.read_csv(reportExport)
@@ -123,7 +124,7 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
   
 ### Step 3 - Data Cleaning
 
-Several cleaning and formatting steps are needed to get the dataset into the appropriate format for loading into the database. This includes removing characters such as commans (,) and dollar signs ($), and converting date formats (from MM-DD-YYYY to YYYY-MM-DD), since MySQL requires that format.
+#### Several cleaning and formatting steps are needed to get the dataset into the appropriate format for loading into the database. This includes removing characters such as commans (,) and dollar signs ($), and converting date formats (from MM-DD-YYYY to YYYY-MM-DD), since MySQL requires that format.
 
 ```python
 
