@@ -190,6 +190,37 @@ def CleanDataSet(df):
             ConvertDate(df, col)
     return df
 ```
+3. Additional Cleaning Steps:
+   - Change the supervisor in some columns
+   - Filter the dataset based on certain criteria
+   - Drop (remove) unnecessary columns
+   - Configure date column
+   - Remove date information from the service code column using string replace and regular expressions
+   ```python
+    #Change the Supervisor to LINCS_QP for the clients who attend LINCS.
+    #This can be done by filtering the records where the ServiceCode is 'DS' and the QP is NOT DEEPCREEK_qp, 
+    # and the Authorizing Payer is NOT 'Partners'  
+    sv_filter = df[(df["service_code"].str.contains("DS")) & (df["authorizing_payer"].str.contains("PARTNERS") == False) & 
+    (df["qp"].str.contains(DEEPCREEK_QP) == False)]
+    
+    # Set LINCS_QP as the QP for all remaining 'DS' services
+    sv_filter.loc[sv_filter['service_code'].str.contains('DS'), 'qp'] = LINCS_QP
+    
+    #Update the original dataset with the applied filter
+    df.update(sv_filter)
+
+    #Drop Authorizing Payer column
+    df = df.drop('authorizing_payer', axis=1)
+
+    #Configure Date for ym Column
+    date_ym = start_date[4:] + '-' + start_date[0:2]
+    df['ym'] = date_ym
+    df['grp'] = '0'
+
+    #Strip out the Date from service_code Column
+    df['service_code'] = df['service_code'].str.replace(r'\(\d{2}/\d{2}/\d{4}\)', '', regex=True)
+    df['service_code'].unique()
+   ```
 
 ### Step 4 - Data Formatting
 
