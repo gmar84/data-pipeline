@@ -140,7 +140,9 @@ Python Libraries Used:
   
 ### Step 3 - Data Cleaning
 
-#### Several cleaning and formatting steps are needed to get the dataset into the appropriate format for loading into the database. This includes removing characters such as commans (,) and dollar signs ($), and converting date formats (from MM-DD-YYYY to YYYY-MM-DD), since MySQL requires that format.
+#### Several cleaning and formatting steps are needed to get the dataset into the appropriate format for loading into the database. 
+
+1. This includes removing characters such as commans (,) and dollar signs ($), and converting date formats (from MM-DD-YYYY to YYYY-MM-DD), since MySQL requires that format.
 
 ```python
 
@@ -165,7 +167,9 @@ def ConvertDateTime(df, col):
     #Strip out the timestamp by using string slicing to get only the first 10 characters
     df[col] = df[col].str.slice(0, 10)  
     return df
-
+```
+2. Putting the above functions together to clean the dataset, in addition, renaming the columns to be compatible with MySQL by replacing space characters with underscores, and replacing upper case with lower case.
+```python
 #Cleaning Steps
 #Replaces space characters with underscores 
 #Checks each column for dollar sign ($) then removes ($,) from only those columns
@@ -180,12 +184,6 @@ def CleanDataSet(df):
         if 'date' in col:
             ConvertDate(df, col)
     return df
-
-#Fix Column Names: replace spaces with underscores, and converts upper case to lower case
-def FixColNames(df):
-    col_names = df.columns.str.replace(' ', '_').tolist()
-    col_names = [x.lower() for x in col_names]
-    df.columns = col_names
 ```
 
 ### Step 4 - Data Formatting
