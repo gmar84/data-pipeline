@@ -1,14 +1,14 @@
-### Data Pipeline
+## Data Pipeline
 
 ---
 
 ### Description
 This data pipeline was written using Python and various supporting libraries. It supports my other two dashboard projects: [employee-performance-power-bi-dashboard](https://github.com/gmar84/employee-performance-power-bi-dashboard) and [utilization-power-bi-dashboard](https://github.com/gmar84/utilization-power-bi-dashboard)
 
-## The Problem
+### The Problem
 Our organization uses several reports to gauge performance. The problem is our EHR system does not have any built-in reporting tools, so traditionally this has meant downloading a CSV file, making manual edits to the data and turning that CSV file into a report. This has taken several hours to perform all the necessary steps from start to finish.
 
-## The solution
+### The solution
 The data pipeline extracts the data from the source EHR system, makes all the necessary steps to clean it, and then loads that data into a MySQL database hosted on AWS. 
 
 Here is a very simple and brief overview:
