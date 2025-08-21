@@ -39,8 +39,7 @@ Python Libraries Used:
 
 By using the Selenium Chromedriver library, the program logs into the EHR system, navigates the GUI, and downloads the CSV data file. Here is how that is done:
 1. By entering Developer mode in the web browser, locating the id element for fields and buttons allows me to locate and interact the various navigation elements
-    - Example:
-    - The following code sets up the driver object:
+    - Example: The following code sets up the driver object
       ```python
       driver = webdriver.Chrome()
       ```
@@ -49,7 +48,7 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
       driver.find_element(By.LINK_TEXT, "Billing").click()
       ```
     - We can also tell it to enter data into fields, such as dates, or other necessary input to filter our data set.
-    - Example: The following code finds the start and end date fields, then inputs the necessary dates:
+    - Example: The following code finds the start and end date fields, then inputs the necessary dates
       ```python
       driver.find_element(By.ID, 'datefield-1865-inputEl').send_keys(start_date)
       driver.find_element(By.ID, 'datefield-1867-inputEl').send_keys(end_date)
