@@ -249,4 +249,3 @@ Which is calling the below function:
       df.to_sql(table, engine, if_exists='append', index=False) 
       print(df.shape[0], " records loaded to", table)
 ```
-### Test
