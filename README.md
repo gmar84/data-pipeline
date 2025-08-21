@@ -40,10 +40,10 @@ Python Libraries Used:
 By using the Selenium Chromedriver library, the program logs into the EHR system, navigates the GUI, and downloads the CSV data file. Here is how that is done:
 1. By entering Developer mode in the web browser, locating the id element for fields and buttons allows me to locate and interact the various navigation elements
     - Example:
-    - The following code sets up the driver object:
+    - The following code sets up the driver object:\
     `def LoadDriver():`\
-      `driver = webdriver.Chrome()`\
-    `return driver`\
+       `driver = webdriver.Chrome()`\
+    `return driver`
     - Then, we can use the driver to locate and interact with the button that is labeled 'Billing':
     - `driver.find_element(By.LINK_TEXT, "Billing").click()`
 
