@@ -50,9 +50,9 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
     - `driver.find_element(By.ID, 'datefield-1865-inputEl').send_keys(start_date)`
     - `driver.find_element(By.ID, 'datefield-1867-inputEl').send_keys(end_date)`
 
-2. start_date and end_date are custom defined functions written to determine which dates to use, based on our organization's billing cycles. Here is how I wrote them:
+2. start_date and end_date are calling custom defined functions written to determine which dates to use, based on our organization's billing cycles. Here is how I wrote them:\
    `def GetPrevMonthStartDate():`\
-    `return GetPrevMonthNum() + '01' + GetPrevMonthYear()`\
+    `return GetPrevMonthNum() + '01' + GetPrevMonthYear()`
 
     `def GetPrevMonthEndDate():`\
     `return GetPrevMonthNum() + GetPrevMonthLastDay() + GetPrevMonthYear()`
