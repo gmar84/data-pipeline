@@ -53,7 +53,7 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
 2. start_date and end_date are calling custom defined functions written to determine which dates to use, based on our organization's billing cycles. Here is how I wrote them:\
 `current_time = datetime.now()`\
 `def GetCurYear():`\
-    >`return str(current_time.year)`\
+    `return str(current_time.year)`\
 `def GetCurDay():`\
     `return str(current_time.day)`\
 `def GetCurMonthNum():`\
