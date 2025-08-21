@@ -143,7 +143,7 @@ Python Libraries Used:
       os.remove(reportExport)
       ```
   
-### Step 3 - Data Cleaning and Formatting
+### Step 3 - Data Transformation
 
 #### Several cleaning and formatting steps are needed to get the dataset into the appropriate format for loading into the database. 
 
@@ -196,8 +196,8 @@ def CleanDataSet(df):
    - Drop (remove) unnecessary columns
    - Configure date column
    - Remove date information from the service code column using string replace and regular expressions
-   - Convert dollar columns to float
    - Remove comma characters from currency columns
+   - Convert dollar columns to float
    ```python
     #Change the Supervisor to LINCS_QP for the clients who attend LINCS.
     #This can be done by filtering the records where the ServiceCode is 'DS' and the QP is NOT DEEPCREEK_qp, 
@@ -233,6 +233,20 @@ def CleanDataSet(df):
     df['variance_billed'] = df['variance_billed'].astype(float)
    ```
 
-### Step 4 - Data Formatting
+### Step 4 - Data Loading
+Loading the data is a simple function call:
 
+```python
+LoadData(df, 'utilization')
+LoadData(df, 'notes')
+```
+
+Which is calling the below function:
+
+```python
+   def LoadData(df, table):
+   engine = 'mysql+mysqlconnector://greg.martin:D1raXDTyj%O63^@44.217.3.204:3306/ontarget'
+   df.to_sql(table, engine, if_exists='append', index=False) 
+   print(df.shape[0], " records loaded to", table)
+```
 ### Test
