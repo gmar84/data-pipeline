@@ -96,4 +96,8 @@ By using the Selenium Chromedriver library, the program logs into the EHR system
     def GetPrevMonthEndDate():
         return GetPrevMonthNum() + GetPrevMonthLastDay() + GetPrevMonthYear()
     ```
+3. Then, when running the program, I can simply call those functions, and the program will automatically determine which billing cycle we are currently in, based off today's date, and other supporting date/time functions.
+   ```python
+    GetUtilization(GetPrevMonthStartDate(), GetPrevMonthEndDate())
+   ```
 ### Test
